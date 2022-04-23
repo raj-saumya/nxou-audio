@@ -5,6 +5,7 @@ interface IAudioState {
   isRecording: boolean;
   recordingStatus: string;
   audioFiles: IAudioFile[];
+  activeAudioFileName: string;
 }
 
 export enum EFileType {
@@ -30,6 +31,7 @@ const initialState: IAudioState = {
   isRecording: false,
   audioFiles: [],
   recordingStatus: "",
+  activeAudioFileName: "",
 };
 
 export const audioSlice = createSlice({
@@ -58,6 +60,9 @@ export const audioSlice = createSlice({
         type,
       });
     },
+    playAudio: (state, action: PayloadAction<string>) => {
+      state.activeAudioFileName = action.payload;
+    },
   },
 });
 
@@ -72,7 +77,7 @@ const covertBytes = (bytes: number): string => {
   return bytes.toFixed(bytes < 10 && l > 0 ? 1 : 0) + " " + units[l];
 };
 
-export const { toggleRecording, addAudio } = audioSlice.actions;
+export const { toggleRecording, addAudio, playAudio } = audioSlice.actions;
 
 export const selectRecordingStatus = (state: RootState) =>
   state.audio.isRecording;
@@ -81,5 +86,10 @@ export const selectRecordingString = (state: RootState) =>
   state.audio.recordingStatus;
 
 export const selectAudioFiles = (state: RootState) => state.audio.audioFiles;
+
+export const selectPlayingAudioFile = (state: RootState) =>
+  state.audio.audioFiles.find(
+    (_) => _.name === state.audio.activeAudioFileName
+  );
 
 export default audioSlice.reducer;

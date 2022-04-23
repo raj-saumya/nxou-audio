@@ -1,8 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { NextPage } from "next/types";
 import Image from "next/image";
-import { useAppSelector } from "../../redux/hooks";
-import { IAudioFile, selectAudioFiles } from "../../redux/slices/audioSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import {
+  IAudioFile,
+  playAudio,
+  selectAudioFiles,
+  selectPlayingAudioFile,
+} from "../../redux/slices/audioSlice";
 
 interface IProps extends IAudioFile {
   isLast: boolean;
@@ -11,14 +16,23 @@ interface IProps extends IAudioFile {
 const Audio: NextPage<IProps> = ({ isLast, name, size, blob }) => {
   const [audioStatus, toggleAudio] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const activeAudioFile = useAppSelector(selectPlayingAudioFile);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (audioStatus) {
       audioRef.current?.play();
+      dispatch(playAudio(name));
     } else {
       audioRef.current?.pause();
     }
   }, [audioStatus]);
+
+  useEffect(() => {
+    if (activeAudioFile?.name !== name) {
+      toggleAudio(false);
+    }
+  }, [activeAudioFile]);
 
   return (
     <React.Fragment>

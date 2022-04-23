@@ -4,6 +4,7 @@ import LayoutWrapper from "../components/LayoutWrapper";
 import UploadSection from "../components/Home/UploadSection";
 import RecordSection from "../components/Home/RecordSection";
 import AudioRecordings from "../components/Home/AudioRecordings";
+import SendAudioFile from "../components/Home/SendAudioFile";
 
 const Home: NextPage = () => {
   const meta: IMeta = {
@@ -21,6 +22,9 @@ const Home: NextPage = () => {
         <div className="flex-1 flex w-full items-center justify-center">
           <AudioRecordings />
         </div>
+      </div>
+      <div className="flex justify-center">
+        <SendAudioFile />
       </div>
     </LayoutWrapper>
   );
