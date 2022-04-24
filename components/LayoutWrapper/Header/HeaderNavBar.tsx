@@ -14,8 +14,8 @@ interface IAnchorLabel {
 
 const AnchorLabel: NextPage<IAnchorLabel> = ({ title, path, asPath }) => (
   <label
-    className={`cursor-pointer font-mono text-sm mx-2 hover:text-white px-4 py-1 rounded ${
-      isSamePath(path, asPath) ? "text-white bg-[#4c4c4c]" : "text-[#c1c1c1]"
+    className={`cursor-pointer font-mono text-base font-bold mx-2 text-slate-800 underline-offset-4 px-4 py-1 rounded ${
+      isSamePath(path, asPath) ? "underline" : ""
     }`}
   >
     {title}
@@ -29,10 +29,6 @@ interface IHeaderLink {
 
 const HeaderLink: NextPage<IHeaderLink> = ({ title, path }) => {
   const { asPath } = useRouter();
-
-  if (isSamePath(path, asPath)) {
-    return <></>;
-  }
 
   return (
     <Link href={path}>

@@ -79,7 +79,7 @@ const HeaderNavBarMob: NextPage<IHeaderNavBarMob> = ({ navItems }) => {
       </div>
       <div
         ref={ref}
-        className="z-10 backdrop-blur-sm bg-[#151717] bg-opacity-60 w-full h-screen fixed left-0 top-0 px-4 py-10 transition -translate-x-full duration-200 ease-in-out sm:hidden"
+        className="z-20 backdrop-blur-sm bg-[#151717] bg-opacity-60 w-full h-screen fixed left-0 top-0 px-4 py-10 transition -translate-x-full duration-200 ease-in-out sm:hidden"
       >
         <div className="flex flex-col">
           {navItems.map((d, index) => (

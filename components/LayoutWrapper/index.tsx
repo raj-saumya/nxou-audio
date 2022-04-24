@@ -11,7 +11,7 @@ interface ILayoutWrapper {
 
 const LayoutWrapper: NextPage<ILayoutWrapper> = ({ meta, children }) => {
   return (
-    <div className="w-full h-full min-h-screen bg-[#090909] flex flex-col px-10">
+    <div className="w-full h-full min-h-screen bg-gradient-to-b from-white to-sky-50 flex flex-col px-10">
       <Head>
         <title>{meta.title}</title>
         <meta charSet="utf-8" />

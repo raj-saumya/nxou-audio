@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { NextPage } from "next/types";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   toggleRecording,
@@ -76,35 +75,38 @@ const RecordSection: NextPage = () => {
     dispatch(toggleRecording());
   };
 
-  return (
-    <React.Fragment>
+  if (!isRecording) {
+    return (
       <div
-        className="cursor-pointer mb-4 transition-all ease-in-out duration-300"
+        className="flex items-center justify-center cursor-pointer bg-sky-800 hover:bg-sky-900 rounded-full w-12 h-12 p-3 shadow-lg overflow-hidden"
         onClick={handleMicClick}
       >
         <Image
           src="/images/icon-mic.svg"
-          width={64}
-          height={64}
+          width={32}
+          height={32}
+          objectFit="fill"
           alt="icon-mic"
         />
       </div>
-      <motion.div
-        initial={{
-          height: 0,
-        }}
-        animate={{
-          height: !isRecording ? 0 : "auto",
-          marginBottom: !isRecording ? 0 : 32,
-        }}
-        transition={{ duration: 0.4 }}
-        className="overflow-hidden"
+    );
+  }
+
+  return (
+    <div className="flex items-center ml-1">
+      <div className="animate-pulse mr-4">
+        <div className="rounded-full bg-red-600 w-5 h-5"></div>
+      </div>
+      <label className="text-black font-mono font-bold text-2xl mr-4">
+        {convertToDigitalFormat(time)}
+      </label>
+      <div
+        className="flex items-center justify-center rounded-full border-2 border-red-700 h-6 w-6"
+        onClick={handleMicClick}
       >
-        <label className="text-white font-mono text-2xl">
-          {convertToDigitalFormat(time)}
-        </label>
-      </motion.div>
-    </React.Fragment>
+        <div className="w-2 h-2 bg-red-700"></div>
+      </div>
+    </div>
   );
 };
 

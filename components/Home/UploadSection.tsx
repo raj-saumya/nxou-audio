@@ -1,6 +1,5 @@
 import React, { useRef, ChangeEvent } from "react";
 import { NextPage } from "next/types";
-import { motion } from "framer-motion";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import {
   addAudio,
@@ -28,39 +27,23 @@ const UploadSection: NextPage = () => {
   };
 
   return (
-    <React.Fragment>
-      <motion.div
-        animate={{
-          height: !isRecording ? "auto" : 0,
-          marginBottom: !isRecording ? 32 : 0,
-        }}
-        transition={{ duration: 0.4 }}
-        className="overflow-hidden"
+    <div className="mb-8 mr-10 sm:mb-0">
+      <input
+        ref={inputRef}
+        onChange={handleFileUpload}
+        type="file"
+        className="hidden"
+        name="audio"
+        accept="audio/*"
+      />
+      <button
+        onClick={() => inputRef.current?.click()}
+        className="text-white text-lg font-mono px-6 py-2 rounded-md shadow-lg bg-sky-600  disabled:bg-slate-300 hover:bg-sky-700"
+        disabled={isRecording}
       >
-        <input
-          ref={inputRef}
-          onChange={handleFileUpload}
-          type="file"
-          className="hidden"
-          name="audio"
-          accept="audio/*"
-        />
-        <button
-          onClick={() => inputRef.current?.click()}
-          className="text-white text-sm font-mono px-4 py-2 rounded-md bg-[#1d1d1d] hover:bg-[#2a2929]"
-        >
-          Upload an Audio file
-        </button>
-      </motion.div>
-      <motion.div
-        animate={{
-          height: !isRecording ? 2 : 0,
-          marginBottom: !isRecording ? 32 : 0,
-        }}
-        transition={{ duration: 0.4 }}
-        className="bg-[#1d1d1d] w-2/4"
-      ></motion.div>
-    </React.Fragment>
+        Upload an Audio file
+      </button>
+    </div>
   );
 };
 
